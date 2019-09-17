@@ -1,0 +1,34 @@
+
+@import '../../../styles/main';
+
+
+.testimonials-page {
+  background-color: cornflowerblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+}
+.testimonials-page__container {
+  max-width: 80%;
+}
+
+.testimonials-page__body {
+  display: flex;
+  justify-content: space-between;
+}
+
+.testimonials-page__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+}
+
+.testimonial-item__img {
+  background-color: white;
+  height: rem(80px);
+  width: rem(80px);
+  border-radius: rem(8px);
+}

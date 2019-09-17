@@ -1,0 +1,102 @@
+
+@import '../../../styles/abstracts/variables';
+@import '../../../styles/abstracts/functions';
+
+.board__container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.board__box {
+  height: 500px;
+  width: 500px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  background-color: black;
+  border-radius: 50%;
+  padding: 10px;
+  transform: rotate(45deg);
+
+  &::after {
+    content: '';
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    background-color: black;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+  }
+}
+
+.board__piece {
+  border: 20px solid black;
+  cursor: pointer;
+  &:not(:active) {
+    transition: background-color 1000ms;
+  }
+  &:active {
+    background-color: black;
+  }
+}
+
+.board__piece--active {
+  background-color: black !important;
+}
+
+.board__piece--red {
+  background-color: red;
+  border-radius: 100% 0 0 0;
+}
+
+.board__piece--yellow {
+  background-color: yellow;
+  border-radius: 0 100% 0 0;
+}
+
+.board__piece--blue {
+  background-color: blue;
+  border-radius: 0 0 0 100%;
+}
+
+.board__piece--green {
+  background-color: green;
+  border-radius: 0 0 100% 0;
+}
+
+.board__cover {
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  background-color: black;
+  border-radius: 50%;
+  top: 150px;
+  left: 150px;
+}
+
+.board__btn-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.board__actions {
+  text-align: center;
+  font-size: rem(20px);
+}
+
+.board__btn {
+  background-color: $font-color-lite;
+  border: rem(1px) solid $primary-background;
+  border-radius: rem(5px);
+  color: $primary-background;
+  font-size: rem(20px);
+  height: rem(32px);
+  width: rem(180px);
+  cursor: pointer;
+}

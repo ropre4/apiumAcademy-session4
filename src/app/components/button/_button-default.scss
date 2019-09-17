@@ -1,0 +1,11 @@
+
+.aa-button--default {
+  color: white;
+  border: unset;
+  &-primary {
+    background-color: blue;
+  }
+  &-secondary {
+    background-color: red;
+  }
+}

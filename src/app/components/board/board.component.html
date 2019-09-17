@@ -1,0 +1,34 @@
+<div class="board__container">
+  <div class="spacing--vertical-4"></div>
+
+  <div class="board__actions"
+       *ngIf="currentGame.status !== allStatus.ongoing">
+    <div *ngIf="currentGame.status === allStatus.not_started">Start a new Game!</div>
+    <div *ngIf="currentGame.status === allStatus.failed">You failed!</div>
+    <div *ngIf="currentGame.status === allStatus.won">You won!</div>
+    <div class="spacing--vertical-2"></div>
+    <div class="board__btn-container">
+    <button class="board__btn" (click)="startGame('standard')">Standard Game</button>
+    <div class="spacing--horizontal-5"></div>
+    <button class="board__btn" (click)="startGame('survival')">Survival Game</button>
+    </div>
+  </div>
+
+  <div class="board__actions" *ngIf="currentGame.status === allStatus.ongoing">
+    <div>Best sequence: {{bestSequence}}</div>
+    <div>Current sequence: {{currentGame.sequence.length - 1}}</div>
+    <div class="spacing--vertical-2"></div>
+    <button class="board__btn" (click)="repeatSequence()">Repeat sequence</button>
+  </div>
+
+  <div class="spacing--vertical-5"></div>
+  <div class="board__box">
+    <div *ngFor="let tile of tiles"
+         class="board__piece board__piece--{{tile.color}}"
+         [ngClass]="{'board__piece--active' : tile.active}"
+         (click)="onClick(tile.index)"
+    >
+    </div>
+
+  </div>
+</div>

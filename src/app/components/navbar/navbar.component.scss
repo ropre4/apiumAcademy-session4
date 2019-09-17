@@ -1,0 +1,23 @@
+
+@import '../../../styles/abstracts/variables';
+@import '../../../styles/abstracts/functions';
+
+.aa-navbar__container {
+  background-color: $primary-background;
+  color: $font-color-lite;
+  height: rem(40px);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: rem(22px);
+}
+
+.aa-navbar__btn {
+  border: none;
+  border-radius: rem(5px);
+  cursor: pointer;
+  height: rem(28px);
+  font-size: rem(20px);
+  background-color: $font-color-lite;
+  color: $primary-background;
+}

@@ -1,0 +1,62 @@
+.spacing {
+  &--vertical-1 {
+    height: rem($spacing-size * 1);
+  }
+  &--vertical-2 {
+    height: rem($spacing-size * 2);
+  }
+  &--vertical-3 {
+    height: rem($spacing-size * 3);
+  }
+  &--vertical-4 {
+    height: rem($spacing-size * 4);
+  }
+  &--vertical-5 {
+    height: rem($spacing-size * 5);
+  }
+  &--vertical-6 {
+    height: rem($spacing-size * 6);
+  }
+  &--vertical-7 {
+    height: rem($spacing-size * 7);
+  }
+  &--vertical-8 {
+    height: rem($spacing-size * 8);
+  }
+  &--vertical-9 {
+    height: rem($spacing-size * 9);
+  }
+  &--vertical-10 {
+    height: rem($spacing-size * 10);
+  }
+  &--horizontal-1 {
+    width: rem($spacing-size * 1);
+  }
+  &--horizontal-2 {
+    width: rem($spacing-size * 2);
+  }
+  &--horizontal-3 {
+    width: rem($spacing-size * 3);
+  }
+  &--horizontal-4 {
+    width: rem($spacing-size * 4);
+  }
+  &--horizontal-5 {
+    width: rem($spacing-size * 5);
+  }
+  &--horizontal-6 {
+    width: rem($spacing-size * 6);
+  }
+  &--horizontal-7 {
+    width: rem($spacing-size * 7);
+  }
+  &--horizontal-8 {
+    width: rem($spacing-size * 8);
+  }
+  &--horizontal-9 {
+    width: rem($spacing-size * 9);
+  }
+  &--horizontal-10 {
+    width: rem($spacing-size * 10);
+  }
+}

@@ -1,0 +1,34 @@
+@mixin rem-baseline($zoom: 100%) {
+  font-size: $zoom / 16px * $rem-baseline;
+}
+
+@mixin rem($properties, $values...) {
+  @if type-of($properties) == "map" {
+    @each $property in map-keys($properties) {
+      @include rem($property, map-get($properties, $property));
+    }
+  } @else {
+    @each $property in $properties {
+      @if $rem-fallback or $rem-px-only {
+        #{$property}: rem-convert(px, $values...);
+      }
+      @if not $rem-px-only {
+        #{$property}: rem-convert(rem, $values...);
+      }
+    }
+  }
+}
+
+@mixin circle($d) {
+  width: rem($d);
+  height: rem($d);
+  border-radius: rem($d/2);
+}
+
+%centered{
+  display: flex; // Step 1
+  flex-direction: column; // Step 2
+  align-items: center; // Step 3
+  justify-content: center;
+  text-align: center;
+}

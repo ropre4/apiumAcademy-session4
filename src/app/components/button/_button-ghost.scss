@@ -1,0 +1,13 @@
+
+.aa-button--ghost {
+  color: white;
+  background-color: transparent;
+  &-primary {
+    border: 1px solid blue;
+    color: blue;
+  }
+  &-secondary {
+    border: 1px solid red;
+    color: red;
+  }
+}
