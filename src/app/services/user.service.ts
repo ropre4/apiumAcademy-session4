@@ -14,9 +14,6 @@ export class UserService {
   private userSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(null);
   private bestSequenceSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
-  private user: Observable<IUser> =  this.userSubject.asObservable();
-  private bestSequence: Observable<number> =  this.bestSequenceSubject.asObservable();
-
   private bestSequenceState = 0;
 
   constructor() { }
@@ -26,7 +23,7 @@ export class UserService {
   }
 
   public getUser(): Observable<IUser> {
-    return this.user;
+    return this.userSubject;
   }
 
   public onValidSequence(sequence: number): void {
@@ -37,7 +34,7 @@ export class UserService {
   }
 
   public getBestSequence(): Observable<number> {
-    return this.bestSequence;
+    return this.bestSequenceSubject;
   }
 
 }
