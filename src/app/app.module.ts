@@ -16,6 +16,9 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {reducers} from './store/reducers';
+import {effects} from './store/effects';
+import {GameSelectorService} from './services/selectors/game.selector-service';
 
 @NgModule({
   declarations: [
@@ -33,9 +36,16 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    // because of NgRx
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(effects),
+    StoreDevtoolsModule.instrument(),
+    StoreRouterConnectingModule.forRoot({stateKey: 'routerReducer'}),
   ],
-  providers: [],
+  providers: [
+    GameSelectorService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
