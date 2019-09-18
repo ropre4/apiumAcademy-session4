@@ -42,9 +42,9 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.gameService.startGame(type).subscribe(
         (game: IGame) => {
-        this.currentGame = game;
-        this.playSequence();
-      })
+          this.currentGame = game;
+          this.playSequence();
+        })
     );
   }
 
@@ -55,13 +55,11 @@ export class BoardComponent implements OnInit, OnDestroy {
   onClick(index: number) {
     this.userSequence.push(index);
     if (this.userSequence.length === this.currentGame.sequence.length) {
-      setTimeout(() => {
-        this.subscriptions.push(this.gameService.verify(this.userSequence).subscribe((game: IGame) => {
-          this.currentGame = game;
-          this.userSequence = [];
-          this.playSequence();
-        }));
-      }, 1000);
+      this.subscriptions.push(this.gameService.verify(this.userSequence).subscribe((game: IGame) => {
+        this.currentGame = game;
+        this.userSequence = [];
+        this.playSequence();
+      }));
     }
   }
 
@@ -79,7 +77,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     });
     this.userSequence = [];
   }
-  initTiles() {
+  initTiles(): void {
     this.tiles = [
       {
         index: 0,
@@ -103,10 +101,11 @@ export class BoardComponent implements OnInit, OnDestroy {
       },
     ];
   }
-  setTilesAsNotActive() {
+  setTilesAsNotActive(): void {
     this.tiles.map((tile: ITile) => tile.active = false);
   }
-  repeatSequence() {
+  repeatSequence(): void {
+    this.userSequence = [];
     this.playSequence();
   }
 }
