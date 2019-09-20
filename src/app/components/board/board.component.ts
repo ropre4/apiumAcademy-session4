@@ -3,6 +3,8 @@ import { IGame, InitialGame, STATUS } from '../../models/models';
 import {GameService} from '../../services/game.service';
 import {Subscription} from 'rxjs';
 import {UserService} from '../../services/user.service';
+import {GameActionService} from '../../services/actions/game.action-service';
+import {GameSelectorService} from '../../services/selectors/game.selector-service';
 
 interface ITile {
   index: number;
@@ -24,10 +26,12 @@ export class BoardComponent implements OnInit, OnDestroy {
   public tiles: ITile[];
   public subscriptions: Subscription[] = [];
   public allStatus = STATUS;
-
+  public loading = false;
   constructor(
     private gameService: GameService,
-    private userService: UserService
+    private userService: UserService,
+    private gameActionService: GameActionService,
+    private gameSelectorService: GameSelectorService
   ) { }
 
   ngOnInit() {
@@ -36,16 +40,17 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.userService.getBestSequence().subscribe((x: number) => {
       this.bestSequence = x;
     }));
+    this.subscriptions.push(this.gameSelectorService.getGame().subscribe((game: IGame) => {
+      this.currentGame = game;
+      this.playSequence();
+    }));
+    this.subscriptions.push(this.gameSelectorService.getLoading().subscribe((loading: boolean) => {
+      this.loading = loading;
+    }));
   }
 
   startGame(type: string) {
-    this.subscriptions.push(
-      this.gameService.startGame(type).subscribe(
-        (game: IGame) => {
-        this.currentGame = game;
-        this.playSequence();
-      })
-    );
+    this.gameActionService.start(type);
   }
 
   ngOnDestroy() {
@@ -55,11 +60,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   onClick(index: number) {
     this.userSequence.push(index);
     if (this.userSequence.length === this.currentGame.sequence.length) {
-      this.subscriptions.push(this.gameService.verify(this.userSequence).subscribe((game: IGame) => {
-        this.currentGame = game;
-        this.userSequence = [];
-        this.playSequence();
-      }));
+      this.gameActionService.verify(this.userSequence);
+      this.userSequence = [];
     }
   }
 
