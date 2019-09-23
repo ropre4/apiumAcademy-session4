@@ -1,0 +1,45 @@
+<div class="aa-home">
+
+  <app-title [title]="title"></app-title>
+
+  <div class="spacing--vertical-5"></div>
+  <div class="aa-home-form__container">
+    <form [formGroup]="loginForm"  #ngForm="ngForm"
+          (ngSubmit)="onSubmit(loginForm.value)"
+          class="aa-home-form"
+    >
+      <div class="aa-home-form__field-container">
+        <label for="nameId" class="aa-home-form__label">
+          Name
+        </label>
+        <input id="nameId"
+               type="text"
+               formControlName="name"
+               class="aa-home-form__input"
+               [ngClass]="{'aa-home-form__input--error': ngForm.submitted && loginForm.controls['name'].errors}"
+        >
+      </div>
+      <div *ngIf="ngForm.submitted && loginForm.controls['name'].errors" class="aa-home-form_error-message">
+        Name must be at least 3 characters long
+        <div class="spacing--vertical-1"></div>
+      </div>
+      <div class="aa-home-form__field-container">
+        <label for="email" class="aa-home-form__label">
+          Email
+        </label>
+        <input id="email"
+               type="text"
+               formControlName="email"
+               class="aa-home-form__input"
+               [ngClass]="{'aa-home-form__input--error': ngForm.submitted && loginForm.controls['email'].errors}"
+        >
+      </div>
+      <div *ngIf="ngForm.submitted && loginForm.controls['email'].errors" class="aa-home-form_error-message">
+        Email needs to have a valid format
+        <div class="spacing--vertical-1"></div>
+      </div>
+      <div class="spacing--vertical-2"></div>
+      <button class="aa-home-form__button" type="submit">Login</button>
+    </form>
+  </div>
+</div>
