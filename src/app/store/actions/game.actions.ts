@@ -1,5 +1,4 @@
-import { Action } from '@ngrx/store';
-import {IGame} from '../../models/models';
+import { createAction, props } from '@ngrx/store';
 import {Game} from '../../models/game';
 
 export const START_GAME = '[GAME] Start';
@@ -10,48 +9,33 @@ export const VERIFY_GAME = '[GAME] Verify';
 export const VERIFY_GAME_FAIL = '[GAME] Verify Fail';
 export const VERIFY_GAME_SUCCESS = '[GAME] Verify Success';
 
-export class StartGame implements Action {
-  public readonly type = START_GAME;
-  constructor(public gameType: string) {
-  }
-}
+export const StartGame = createAction(
+  START_GAME,
+  props<{ gameType: string }>()
+);
 
-export class StartGameFail implements Action {
-  public readonly type = START_GAME_FAIL;
-  constructor(public payload: any) {
-  }
-}
+export const StartGameFail = createAction(
+  START_GAME_FAIL,
+  props<{ payload: any }>()
+);
 
-export class StartGameSuccess implements Action {
-  public readonly type = START_GAME_SUCCESS;
-  constructor(public payload: Game) {
-  }
-}
+export const StartGameSuccess = createAction(
+  START_GAME_SUCCESS,
+  props<{ payload: Game }>()
+);
 
-export class VerifyGame implements Action {
-  public readonly type = VERIFY_GAME;
-  constructor(public sequence: number[]) {
-  }
-}
+export const VerifyGame = createAction(
+  VERIFY_GAME,
+  props<{ sequence: number[] }>()
+);
 
-export class VerifyGameFail implements Action {
-  public readonly type = VERIFY_GAME_FAIL;
-  constructor(public payload: any) {
-  }
-}
+export const VerifyGameFail = createAction(
+  VERIFY_GAME_FAIL,
+  props<{ payload: any }>()
+);
 
-export class VerifyGameSuccess implements Action {
-  public readonly type = VERIFY_GAME_SUCCESS;
-  constructor(public payload: Game) {
-  }
-}
 
-// this type is used in the reducer function
-export type PoolActions =
-  | StartGame
-  | StartGameFail
-  | StartGameSuccess
-  | VerifyGame
-  | VerifyGameFail
-  | VerifyGameSuccess
-  ;
+export const VerifyGameSuccess = createAction(
+  VERIFY_GAME_SUCCESS,
+  props<{ payload: any }>()
+);

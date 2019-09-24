@@ -12,11 +12,11 @@ export class GameActionService {
   }
 
   public start(gameType: string): void {
-    this.store.dispatch(new gameActions.StartGame(gameType));
+    this.store.dispatch(gameActions.StartGame({gameType}));
   }
 
   public verify(sequence: number[]): void {
-    this.store.dispatch(new gameActions.VerifyGame(sequence));
+    this.store.dispatch(gameActions.VerifyGame({sequence}));
   }
 
 }
