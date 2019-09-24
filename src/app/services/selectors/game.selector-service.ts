@@ -4,6 +4,7 @@ import {GlobalState} from '../../store/reducers/index';
 import {Observable} from 'rxjs';
 import * as gameSelectors from '../../store/selectors/game.selectors';
 import {IGame} from '../../models/models';
+import {Game} from '../../models/game';
 
 @Injectable()
 export class GameSelectorService {
@@ -16,7 +17,7 @@ export class GameSelectorService {
   }
 
   // Form 2 (not using selector)
-  public getGame(): Observable<IGame> {
+  public getGame(): Observable<Game> {
     return this.store.select((state: GlobalState) => state.game.game);
   }
 

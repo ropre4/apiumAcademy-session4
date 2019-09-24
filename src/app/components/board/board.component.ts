@@ -5,6 +5,7 @@ import {Subscription} from 'rxjs';
 import {UserService} from '../../services/user.service';
 import {GameActionService} from '../../services/actions/game.action-service';
 import {GameSelectorService} from '../../services/selectors/game.selector-service';
+import {Game} from '../../models/game';
 
 interface ITile {
   index: number;
@@ -20,8 +21,7 @@ interface ITile {
 
 export class BoardComponent implements OnInit, OnDestroy {
 
-  public currentGame: IGame;
-  public userSequence: number[] = [];
+  public currentGame: Game;
   public bestSequence: number;
   public tiles: ITile[];
   public subscriptions: Subscription[] = [];
@@ -36,11 +36,10 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initTiles();
-    this.currentGame = InitialGame;
     this.subscriptions.push(this.userService.getBestSequence().subscribe((x: number) => {
       this.bestSequence = x;
     }));
-    this.subscriptions.push(this.gameSelectorService.getGame().subscribe((game: IGame) => {
+    this.subscriptions.push(this.gameSelectorService.getGame().subscribe((game: Game) => {
       this.currentGame = game;
       this.playSequence();
     }));
@@ -58,10 +57,9 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   onClick(index: number) {
-    this.userSequence.push(index);
-    if (this.userSequence.length === this.currentGame.sequence.length) {
-      this.gameActionService.verify(this.userSequence);
-      this.userSequence = [];
+    this.currentGame = this.currentGame.addUserStep(index);
+    if (this.currentGame.isReadyToVerify()) {
+      this.gameActionService.verify(this.currentGame.userSequence);
     }
   }
 
@@ -77,7 +75,6 @@ export class BoardComponent implements OnInit, OnDestroy {
         setTimeout(() => this.setTilesAsNotActive(), (1000 * index) - 500);
       }
     });
-    this.userSequence = [];
   }
   initTiles(): void {
     this.tiles = [
@@ -107,7 +104,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.tiles.map((tile: ITile) => tile.active = false);
   }
   repeatSequence(): void {
-    this.userSequence = [];
+    this.currentGame = this.currentGame.removeUserSequence();
     this.playSequence();
   }
 }

@@ -1,19 +1,20 @@
 import * as gameActions from '../actions/game.actions';
 import {IGame, InitialGame} from '../../models/models';
+import {Game} from '../../models/game';
 
 export interface GameState {
-  game: IGame;
+  game: Game;
   loading: boolean;
-  error: any;
+  error: string;
 }
 
 export const InitialGameState: GameState = {
-  game: InitialGame,
+  game: Game.FromBackend(InitialGame),
   loading: false,
   error: null
 };
 
-export function GameReducer(state = InitialGameState, action: gameActions.PoolActions): GameState {
+export function GameReducer(state: GameState = InitialGameState, action: gameActions.PoolActions): GameState {
   switch (action.type) {
     case gameActions.START_GAME:
       return {
@@ -29,7 +30,8 @@ export function GameReducer(state = InitialGameState, action: gameActions.PoolAc
     case gameActions.START_GAME_FAIL:
       return {
         ...state,
-        loading: false
+        loading: false,
+        error: action.payload
       };
     case gameActions.VERIFY_GAME:
       return {
@@ -53,4 +55,4 @@ export function GameReducer(state = InitialGameState, action: gameActions.PoolAc
 }
 
 export const getLoading = (state: GameState): boolean => state.loading;
-export const getGame = (state: GameState): IGame => state.game;
+export const getGame = (state: GameState): Game => state.game;

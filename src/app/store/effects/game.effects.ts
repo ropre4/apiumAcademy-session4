@@ -7,6 +7,7 @@ import * as GameActions from '../actions/game.actions';
 import {GameService} from '../../services/game.service';
 import {IGame} from '../../models/models';
 import {Action} from '@ngrx/store';
+import {Game} from '../../models/game';
 
 @Injectable()
 export class GameEffects {
@@ -21,8 +22,8 @@ export class GameEffects {
     ofType(GameActions.START_GAME),
     switchMap((action: GameActions.StartGame) => {
       return this.gameService.startGame(action.gameType).pipe(
-        map((game: IGame) => new GameActions.StartGameSuccess(game)),
-        catchError(error => of(new GameActions.StartGameFail(error))),
+        map((game: Game) => new GameActions.StartGameSuccess(game)),
+        catchError((error: Error) => of(new GameActions.StartGameFail(error.message))),
       );
     }),
   );
@@ -32,7 +33,7 @@ export class GameEffects {
     ofType(GameActions.VERIFY_GAME),
     switchMap((action: GameActions.VerifyGame) => {
       return this.gameService.verify(action.sequence).pipe(
-        map((game: IGame) => new GameActions.VerifyGameSuccess(game)),
+        map((game: Game) => new GameActions.VerifyGameSuccess(game)),
         catchError(error => of(new GameActions.VerifyGameFail(error))),
       );
     }),

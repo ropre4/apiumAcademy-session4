@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import {IGame} from '../models/models';
 import { Observable } from 'rxjs';
 import {UserService} from './user.service';
-import {delay, tap} from 'rxjs/operators';
+import {delay, map, tap} from 'rxjs/operators';
+import {Game} from '../models/game';
 
 @Injectable({
   providedIn: 'root'
@@ -17,17 +18,19 @@ export class GameService {
     private userService: UserService,
   ) { }
 
-  public startGame(type: string): Observable<IGame> {
+  public startGame(type: string): Observable<Game> {
     return this.http.get<IGame>(this.serverUrl + '/start/' + type).pipe(
       delay(1000),
-      tap((game: IGame) => this.userService.onValidSequence(game.sequence.length - 1))
+      tap((game: IGame) => this.userService.onValidSequence(game.sequence.length - 1)),
+      map((game: IGame) => Game.FromBackend(game))
     );
   }
 
-  public verify(sequence: number[]): Observable<IGame> {
+  public verify(sequence: number[]): Observable<Game> {
     return this.http.post<IGame>(this.serverUrl + '/verify', sequence).pipe(
       delay(1000),
-      tap((game: IGame) => this.userService.onValidSequence(game.sequence.length - 1))
+      tap((game: IGame) => this.userService.onValidSequence(game.sequence.length - 1)),
+      map((game: IGame) => Game.FromBackend(game))
     );
   }
 

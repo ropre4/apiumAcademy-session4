@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import {IGame} from '../../models/models';
+import {Game} from '../../models/game';
 
 export const START_GAME = '[GAME] Start';
 export const START_GAME_FAIL = '[GAME] Start Fail';
@@ -23,7 +24,7 @@ export class StartGameFail implements Action {
 
 export class StartGameSuccess implements Action {
   public readonly type = START_GAME_SUCCESS;
-  constructor(public payload: IGame) {
+  constructor(public payload: Game) {
   }
 }
 
@@ -41,7 +42,7 @@ export class VerifyGameFail implements Action {
 
 export class VerifyGameSuccess implements Action {
   public readonly type = VERIFY_GAME_SUCCESS;
-  constructor(public payload: IGame) {
+  constructor(public payload: Game) {
   }
 }
 
