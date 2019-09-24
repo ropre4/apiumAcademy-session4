@@ -1,6 +1,7 @@
 import * as gameActions from '../actions/game.actions';
-import {IGame, InitialGame} from '../../models/models';
+import {InitialGame} from '../../models/models';
 import {Game} from '../../models/game';
+import { createReducer, on, Action, ActionReducer } from '@ngrx/store';
 
 export interface GameState {
   game: Game;
@@ -14,44 +15,18 @@ export const InitialGameState: GameState = {
   error: null
 };
 
-export function GameReducer(state: GameState = InitialGameState, action: gameActions.PoolActions): GameState {
-  switch (action.type) {
-    case gameActions.START_GAME:
-      return {
-        ...state,
-        loading: true
-      };
-    case gameActions.START_GAME_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        game: action.payload
-      };
-    case gameActions.START_GAME_FAIL:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload
-      };
-    case gameActions.VERIFY_GAME:
-      return {
-        ...state,
-        loading: true
-      };
-    case gameActions.VERIFY_GAME_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        game: action.payload
-      };
-    case gameActions.VERIFY_GAME_FAIL:
-      return {
-        ...state,
-        loading: false
-      };
-    default:
-      return state;
-  }
+const gameReducer: ActionReducer<GameState> = createReducer(
+  InitialGameState,
+  on(gameActions.StartGame, state => ( { ...state, loading: true }) ),
+  on(gameActions.StartGameSuccess, (state, action) => ({ ...state, loading: false, game: action.payload }) ),
+  on(gameActions.StartGameFail, (state, action) => ({ ...state, loading: false, error: action.payload }) ),
+  on(gameActions.VerifyGame, state => ( { ...state, loading: true }) ),
+  on(gameActions.VerifyGameSuccess, (state, action) => ({ ...state, loading: false, game: action.payload }) ),
+  on(gameActions.VerifyGameFail, (state, action) => ({ ...state, loading: false, error: action.payload }) ),
+);
+
+export function reducer( state: GameState, action: Action ): GameState {
+  return gameReducer(state, action);
 }
 
 export const getLoading = (state: GameState): boolean => state.loading;

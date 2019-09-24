@@ -7,5 +7,5 @@ export interface GlobalState {
 }
 
 export const reducers: ActionReducerMap<GlobalState> = {
-  game: fromGameReducer.GameReducer
-}
+  game: fromGameReducer.reducer
+};
