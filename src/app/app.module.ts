@@ -8,7 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginComponent } from './components/login/login.component';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
@@ -18,6 +17,7 @@ import {effects} from './store/effects';
 import {GameSelectorService} from './services/selectors/game.selector-service';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { TitleComponent } from './components/title/title.component';
+import { ZoneDemoComponent } from './components/zone-demo/zone-demo.component';
 
 @NgModule({
   declarations: [
@@ -25,9 +25,9 @@ import { TitleComponent } from './components/title/title.component';
     BoardComponent,
     HomeComponent,
     NavbarComponent,
-    LoginComponent,
     UserFormComponent,
-    TitleComponent
+    TitleComponent,
+    ZoneDemoComponent
   ],
   imports: [
     BrowserModule,

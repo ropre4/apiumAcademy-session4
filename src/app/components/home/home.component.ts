@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,8 @@ import {Router} from '@angular/router';
 })
 export class HomeComponent {
 
-  private title = 'Welcome to Simon Says!';
+  public title: {title: string} = {title: 'Welcome!'};
+  public counter$ = new Subject();
 
   constructor(
     private userService: UserService,
@@ -24,4 +26,12 @@ export class HomeComponent {
       this.router.navigateByUrl('game');
   }
 
+  public changeTitle() {
+    this.title = {title: '' + Date.now()};
+    // this.title.title = '' + Date.now();
+  }
+
+  public emitSomething() {
+    this.counter$.next(null);
+  }
 }

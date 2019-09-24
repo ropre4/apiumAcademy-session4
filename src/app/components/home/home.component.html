@@ -1,7 +1,22 @@
 <div class="home__container">
+  <div class="spacing--vertical-5"></div>
+
+  <app-zone-demo></app-zone-demo>
+
   <div class="spacing--vertical-10"></div>
+  <div class="spacing--vertical-10"></div>
+  <div class="spacing--vertical-10"></div>
+  <div class="spacing--vertical-10"></div>
+  <div class="spacing--vertical-10"></div>
+  <div class="spacing--vertical-10"></div>
+  <div class="spacing--vertical-10"></div>
+  <div class="spacing--vertical-10"></div>
+
+  <button (click)="changeTitle()">change Title</button>
+  <button (click)="emitSomething()">emit</button>
   <app-user-form
     (submit)="onSubmit($event)"
+    [counter$]="counter$"
     [title]="title"
   >
   </app-user-form>

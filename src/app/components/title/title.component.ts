@@ -1,17 +1,31 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-title',
   templateUrl: './title.component.html',
-  styleUrls: ['./title.component.scss']
+  styleUrls: ['./title.component.scss'],
+
 })
-export class TitleComponent implements OnInit {
+export class TitleComponent implements OnInit, OnDestroy {
 
-  @Input() public title = 'Hello';
+  public counter = 0;
+  public sub: Subscription;
 
-  constructor() { }
+  @Input() public title: {title: string};
+  @Input() public counter$: Observable<any>;
+
+  constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.sub = this.counter$.subscribe( () => {
+      this.counter++;
+      // this.cd.markForCheck();
+    });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }
