@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {Subject} from 'rxjs';
@@ -10,7 +10,7 @@ import {Subject} from 'rxjs';
 })
 export class HomeComponent {
 
-  public title: {title: string} = {title: 'Welcome!'};
+  public title: {a: string} = {a: 'a'};
   public counter$ = new Subject();
 
   constructor(
@@ -27,11 +27,11 @@ export class HomeComponent {
   }
 
   public changeTitle() {
-    this.title = {title: '' + Date.now()};
-    // this.title.title = '' + Date.now();
+    this.title = {a: '' + Date.now()};
+    // this.title.a = '' + Date.now();
   }
 
   public emitSomething() {
-    this.counter$.next(null);
+    this.counter$.next( Date.now());
   }
 }

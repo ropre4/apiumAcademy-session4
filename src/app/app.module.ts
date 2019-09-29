@@ -18,6 +18,9 @@ import {GameSelectorService} from './services/selectors/game.selector-service';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { TitleComponent } from './components/title/title.component';
 import { ZoneDemoComponent } from './components/zone-demo/zone-demo.component';
+import { TestComponent } from './components/test/test.component';
+import { CollapseDirective } from './directives/collapse.directive';
+import { CollapseBoxComponent } from './directives/collapse-box/collapse-box.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { ZoneDemoComponent } from './components/zone-demo/zone-demo.component';
     NavbarComponent,
     UserFormComponent,
     TitleComponent,
-    ZoneDemoComponent
+    ZoneDemoComponent,
+    TestComponent,
+    CollapseDirective,
+    CollapseBoxComponent
   ],
   imports: [
     BrowserModule,

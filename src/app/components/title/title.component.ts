@@ -5,14 +5,14 @@ import {Observable, Subscription} from 'rxjs';
   selector: 'app-title',
   templateUrl: './title.component.html',
   styleUrls: ['./title.component.scss'],
-
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TitleComponent implements OnInit, OnDestroy {
 
   public counter = 0;
   public sub: Subscription;
 
-  @Input() public title: {title: string};
+  @Input() public title: {a: string};
   @Input() public counter$: Observable<any>;
 
   constructor(private cd: ChangeDetectorRef) { }

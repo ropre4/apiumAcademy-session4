@@ -14,6 +14,19 @@ export class ZoneDemoComponent implements OnInit {
   ngOnInit() {
   }
 
+  increaseProgress(doneCallback: () => void) {
+    this.progress += 1;
+    console.log(`Current progress: ${this.progress}%`);
+
+    if (this.progress < 100) {
+      setTimeout(() => {
+        this.increaseProgress(doneCallback);
+      }, 20);
+    } else {
+      doneCallback();
+    }
+  }
+
   processWithinAngularZone() {
     this.progress = 0;
     this.increaseProgress(() => console.log('Done!'));
@@ -28,19 +41,6 @@ export class ZoneDemoComponent implements OnInit {
         });
       });
     });
-  }
-
-  increaseProgress(doneCallback: () => void) {
-    this.progress += 1;
-    console.log(`Current progress: ${this.progress}%`);
-
-    if (this.progress < 100) {
-      setTimeout(() => {
-        this.increaseProgress(doneCallback);
-      }, 20);
-    } else {
-      doneCallback();
-    }
   }
 
 }

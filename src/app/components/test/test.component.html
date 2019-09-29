@@ -1,0 +1,14 @@
+<div class='accordion-list__container'>
+
+  <div class="spacing--vertical-10"></div>
+
+  <div>
+    <ng-container *ngFor='let item of accordions'>
+      <div class="accordion__item" [appCollapse]="collapse" [open]="false" (clickedOnMe)="closeAll()">Some title here {{item}}</div>
+      <app-collapse-box #collapse>
+        drhdrhdrhrd
+      </app-collapse-box>
+    </ng-container>
+  </div>
+
+</div>

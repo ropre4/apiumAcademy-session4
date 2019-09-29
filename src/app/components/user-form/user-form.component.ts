@@ -6,12 +6,11 @@ import {Observable} from 'rxjs';
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
 
-  @Input() title: string;
+  @Input() title: {a: string};
   @Input() counter$: Observable<any>;
   @Output() submit = new EventEmitter<any>();
 
