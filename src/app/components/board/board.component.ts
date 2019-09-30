@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { IGame, InitialGame, STATUS } from '../../models/models';
+import {STATUS} from '../../models/models';
 import {GameService} from '../../services/game.service';
 import {Subscription} from 'rxjs';
 import {UserService} from '../../services/user.service';
@@ -21,7 +21,7 @@ interface ITile {
 
 export class BoardComponent implements OnInit, OnDestroy {
 
-  public currentGame: Game;
+  public currentGame: Game = Game.FromBackend({sequence: [], status: STATUS.not_started});
   public bestSequence: number;
   public tiles: ITile[];
   public subscriptions: Subscription[] = [];
@@ -41,7 +41,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     }));
     this.subscriptions.push(this.gameSelectorService.getGame().subscribe((game: Game) => {
       this.currentGame = game;
-      this.playSequence();
+      this.playSequence(this.currentGame);
     }));
     this.subscriptions.push(this.gameSelectorService.getLoading().subscribe((loading: boolean) => {
       this.loading = loading;
@@ -63,8 +63,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  playSequence(): void {
-    this.currentGame.sequence.concat(null).map((value: number, index: number) => {
+  playSequence(game: Game): void {
+    game.sequence.concat(null).map((value: number, index: number) => {
       if (value !== null) {
         setTimeout(() => this.setTilesAsNotActive(), (1000 * index) - 500);
         setTimeout(() => {
@@ -105,6 +105,6 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
   repeatSequence(): void {
     this.currentGame = this.currentGame.removeUserSequence();
-    this.playSequence();
+    this.playSequence(this.currentGame);
   }
 }

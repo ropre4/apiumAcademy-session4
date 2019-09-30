@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {IGame} from '../models/models';
+import {IGame, STATUS} from '../models/models';
 import { Observable } from 'rxjs';
 import {UserService} from './user.service';
 import {delay, map, tap} from 'rxjs/operators';
@@ -12,6 +12,9 @@ import {Game} from '../models/game';
 export class GameService {
 
   private serverUrl = 'http://localhost:4201';
+
+  public game: Game = Game.FromBackend({sequence: [], status: STATUS.not_started});
+
 
   constructor(
     private http: HttpClient,
