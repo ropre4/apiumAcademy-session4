@@ -17,25 +17,25 @@ export class GameEffects {
   ) {
   }
 
-  @Effect()
-  public startGame$: Observable<Action> = this.actions$.pipe(
-    ofType(GameActions.START_GAME),
-    switchMap((action: GameActions.StartGame) => {
-      return this.gameService.startGame(action.gameType).pipe(
-        map((game: Game) => new GameActions.StartGameSuccess(game)),
-        catchError((error: Error) => of(new GameActions.StartGameFail(error.message))),
-      );
-    }),
-  );
-
-  @Effect()
-  public verifyGame$: Observable<Action> = this.actions$.pipe(
-    ofType(GameActions.VERIFY_GAME),
-    switchMap((action: GameActions.VerifyGame) => {
-      return this.gameService.verify(action.sequence).pipe(
-        map((game: Game) => new GameActions.VerifyGameSuccess(game)),
-        catchError(error => of(new GameActions.VerifyGameFail(error))),
-      );
-    }),
-  );
+  // @Effect()
+  // public startGame$: Observable<Action> = this.actions$.pipe(
+  //   ofType(GameActions.START_GAME),
+  //   switchMap((action: GameActions.StartGame) => {
+  //     return this.gameService.startGame(action.gameType).pipe(
+  //       map((game: Game) => new GameActions.StartGameSuccess(game)),
+  //       catchError((error: Error) => of(new GameActions.StartGameFail(error.message))),
+  //     );
+  //   }),
+  // );
+  //
+  // @Effect()
+  // public verifyGame$: Observable<Action> = this.actions$.pipe(
+  //   ofType(GameActions.VERIFY_GAME),
+  //   switchMap((action: GameActions.VerifyGame) => {
+  //     return this.gameService.verify(action.sequence).pipe(
+  //       map((game: Game) => new GameActions.VerifyGameSuccess(game)),
+  //       catchError(error => of(new GameActions.VerifyGameFail(error))),
+  //     );
+  //   }),
+  // );
 }

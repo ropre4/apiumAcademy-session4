@@ -1,11 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {STATUS} from '../../models/models';
 import {GameService} from '../../services/game.service';
-import {Subscription} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {UserService} from '../../services/user.service';
-import {GameActionService} from '../../services/actions/game.action-service';
-import {GameSelectorService} from '../../services/selectors/game.selector-service';
 import {Game} from '../../models/game';
+import {BoardPresenter} from './board.presenter';
 
 interface ITile {
   index: number;
@@ -27,40 +26,43 @@ export class BoardComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[] = [];
   public allStatus = STATUS;
   public loading = false;
+
+  public onStepClick$ = new Subject<number>();
+  public onResetSequence$ = new Subject<any>();
+  public onStartGame$ = new Subject<string>();
+
+  private presenter: BoardPresenter;
+
   constructor(
     private gameService: GameService,
     private userService: UserService,
-    private gameActionService: GameActionService,
-    private gameSelectorService: GameSelectorService
-  ) { }
+  ) {
+      this.presenter = new BoardPresenter(this, this.gameService);
+  }
 
   ngOnInit() {
     this.initTiles();
     this.subscriptions.push(this.userService.getBestSequence().subscribe((x: number) => {
       this.bestSequence = x;
     }));
-    this.subscriptions.push(this.gameSelectorService.getGame().subscribe((game: Game) => {
-      this.currentGame = game;
-      this.playSequence(this.currentGame);
-    }));
-    this.subscriptions.push(this.gameSelectorService.getLoading().subscribe((loading: boolean) => {
-      this.loading = loading;
-    }));
   }
 
   startGame(type: string) {
-    this.gameActionService.start(type);
+    this.onStartGame$.next(type);
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+    this.presenter.subscription.unsubscribe();
   }
 
   onClick(index: number) {
-    this.currentGame = this.currentGame.addUserStep(index);
-    if (this.currentGame.isReadyToVerify()) {
-      this.gameActionService.verify(this.currentGame.userSequence);
-    }
+    this.onStepClick$.next(index);
+  }
+
+  onNewGame(game: Game): void {
+    this.currentGame = game;
+    this.playSequence(game);
   }
 
   playSequence(game: Game): void {
@@ -107,4 +109,6 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.currentGame = this.currentGame.removeUserSequence();
     this.playSequence(this.currentGame);
   }
+
+
 }
